@@ -10,16 +10,26 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-
-            Contact contact = new Contact(name:"Ruslan",phoneNumber:79375257001,email:"lar@yandex.ru");
-            List<Contact> phoneBook = new List<Contact>()
+            var months = new List<string>()
             {
-                new Contact(name:"Zuslan1",phoneNumber:79375257001,email:"lar@yandex.ru"),
-                new Contact(name:"Mlmir",phoneNumber:79375251001,email:"ed@yandex.ru"),
-                new Contact(name:"Aara",phoneNumber:79375557001,email:"zar@yandex.ru")
+               "Jan", "Feb", "Mar", "Apr", "May"
             };
 
-            AddUnique(contact, phoneBook);
+            var missing = new ArrayList()
+            {
+               1, 2, 3, 5, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            };
+
+            AddElemToList(months,missing);
+            //Contact contact = new Contact(name:"Ruslan",phoneNumber:79375257001,email:"lar@yandex.ru");
+            //List<Contact> phoneBook = new List<Contact>()
+            //{
+            //    new Contact(name:"Zuslan1",phoneNumber:79375257001,email:"lar@yandex.ru"),
+            //    new Contact(name:"Mlmir",phoneNumber:79375251001,email:"ed@yandex.ru"),
+            //    new Contact(name:"Aara",phoneNumber:79375557001,email:"zar@yandex.ru")
+            //};
+
+            //AddUnique(contact, phoneBook);
 
             //ArrayList arrList = new ArrayList()
             //{
@@ -163,6 +173,18 @@ namespace Module_13
                 Console.WriteLine(elem.Name + " " + elem.PhoneNumber);
             }
 
+        }
+
+        private static void AddElemToList(List<string> months, ArrayList missing)
+        {
+            var misArray = new string[7];
+            missing.GetRange(4, 7).CopyTo(misArray);
+            months.AddRange(misArray);
+
+            foreach (var elem in months)
+            {
+                Console.WriteLine(elem);
+            }
         }
     }
 }
