@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -9,17 +10,28 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-            ArrayList arrList = new ArrayList()
+
+            Contact contact = new Contact(name:"Ruslan",phoneNumber:79375257001,email:"lar@yandex.ru");
+            List<Contact> phoneBook = new List<Contact>()
             {
-                1,2,"H",3,4,5,"E","L",6,7,"L",8,9,"O"
+                new Contact(name:"Zuslan1",phoneNumber:79375257001,email:"lar@yandex.ru"),
+                new Contact(name:"Mlmir",phoneNumber:79375251001,email:"ed@yandex.ru"),
+                new Contact(name:"Aara",phoneNumber:79375557001,email:"zar@yandex.ru")
             };
 
-            var list =  ArrayListOperation(arrList);
+            AddUnique(contact, phoneBook);
 
-            foreach (var elem in list)
-            {
-                Console.WriteLine(elem);
-            }
+            //ArrayList arrList = new ArrayList()
+            //{
+            //    1,2,"H",3,4,5,"E","L",6,7,"L",8,9,"O"
+            //};
+
+            //var list =  ArrayListOperation(arrList);
+
+            //foreach (var elem in list)
+            //{
+            //    Console.WriteLine(elem);
+            //}
             //uneducatedListWorkShow();
             //Console.WriteLine("Введите путь к текстовому файлу");
             //string path = @"C:\Users\pc\Downloads\cdev_Text.txt";
@@ -126,6 +138,31 @@ namespace Module_13
             list.Add(sum);
             list.Add(text);
             return list;
+        }
+
+        private static void AddUnique(Contact contact, List<Contact> phoneBook)
+        {
+            for (int i = 0; i < phoneBook.Count; i++)
+            {
+                if(phoneBook[i].Name == contact.Name)
+                {
+                    return;
+                }     
+            }
+
+            phoneBook.Add(contact);
+
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine(elem.Name + " " + elem.PhoneNumber);
+            }
+
+            phoneBook.Sort();
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine(elem.Name + " " + elem.PhoneNumber);
+            }
+
         }
     }
 }
