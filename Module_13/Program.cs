@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
+using System.Text;
 
 namespace Module_13
 {
@@ -8,7 +9,18 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-            uneducatedListWorkShow();
+            ArrayList arrList = new ArrayList()
+            {
+                1,2,"H",3,4,5,"E","L",6,7,"L",8,9,"O"
+            };
+
+            var list =  ArrayListOperation(arrList);
+
+            foreach (var elem in list)
+            {
+                Console.WriteLine(elem);
+            }
+            //uneducatedListWorkShow();
             //Console.WriteLine("Введите путь к текстовому файлу");
             //string path = @"C:\Users\pc\Downloads\cdev_Text.txt";
             //long wordsCnt = 0;
@@ -93,6 +105,27 @@ namespace Module_13
             {
                 Console.WriteLine(elem);
             }
+        }
+
+        private static ArrayList ArrayListOperation(ArrayList arrList)
+        {
+            int sum = 0;
+            StringBuilder text = new StringBuilder();
+            foreach (var elem in arrList)
+            {
+                if (elem is int)
+                {
+                    sum += (int)elem;
+                }
+                else if (elem is string)
+                {
+                    text.Append(elem);
+                }
+            }
+            var list = new ArrayList();
+            list.Add(sum);
+            list.Add(text);
+            return list;
         }
     }
 }
