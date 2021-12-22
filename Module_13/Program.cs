@@ -10,17 +10,18 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-            var months = new List<string>()
-            {
-               "Jan", "Feb", "Mar", "Apr", "May"
-            };
+            CntUniqSymbolsInText();
+            //var months = new List<string>()
+            //{
+            //   "Jan", "Feb", "Mar", "Apr", "May"
+            //};
 
-            var missing = new ArrayList()
-            {
-               1, 2, 3, 5, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-            };
+            //var missing = new ArrayList()
+            //{
+            //   1, 2, 3, 5, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            //};
 
-            AddElemToList(months,missing);
+            //AddElemToList(months,missing);
             //Contact contact = new Contact(name:"Ruslan",phoneNumber:79375257001,email:"lar@yandex.ru");
             //List<Contact> phoneBook = new List<Contact>()
             //{
@@ -185,6 +186,20 @@ namespace Module_13
             {
                 Console.WriteLine(elem);
             }
+        }
+
+        private static void CntUniqSymbolsInText ()
+        {
+            char[] sepChars = {' '};
+            var text = "Подсчитайте, сколько уникальных символов в этом предложении, используя HashSet<T>, учитывая знаки препинания, но не учитывая пробелы в начале и в конце предложения.";
+            var temp = text.Trim().ToCharArray();
+            HashSet<char> unqElem = new HashSet<char>();
+            unqElem.UnionWith(temp);            
+            foreach (var elem in unqElem)
+            {
+                Console.WriteLine(elem);
+            }
+            Console.WriteLine("Количество уникальных элементов в коллекции:" + unqElem.Count);
         }
     }
 }
