@@ -10,7 +10,10 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-            CntUniqSymbolsInText();
+            // CntUniqSymbolsInText();
+
+            FillPhoneBook();
+
             //var months = new List<string>()
             //{
             //   "Jan", "Feb", "Mar", "Apr", "May"
@@ -209,6 +212,51 @@ namespace Module_13
                 var numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
                 Console.WriteLine("Цирфы в коллекции: " + (unqElem.Overlaps(numbers) ? "Есть" : "Нет"));
             }
+        }
+
+        private static void FillPhoneBook()
+        {
+            Contact contact = new Contact(name: "Ruslan", phoneNumber: 79375257001, email: "lar@yandex.ru");
+            Dictionary<string, Contact> phoneBook = new Dictionary<string, Contact>();
+            AddUnique(new Contact(name: "Zuslan1", phoneNumber: 79375257001, email: "lar@yandex.ru"), ref phoneBook);
+            AddUnique(new Contact(name: "Mlmir", phoneNumber: 79375251001, email: "ed@yandex.ru"), ref phoneBook);
+            AddUnique(new Contact(name: "Aara", phoneNumber: 79375557001, email: "zar@yandex.ru"), ref phoneBook);
+
+            Console.WriteLine("Исходный список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+
+            AddUnique(new Contact("Vasya", 79174257512, "vasya@mail.ru"), ref phoneBook);
+            AddUnique(new Contact("Valya", 79774267512, "valya@rambler.ru"), ref phoneBook);
+
+            Console.WriteLine("Получившийся список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+
+            phoneBook["Valya"].PhoneNumber = 79133541211;
+
+            Console.WriteLine();
+            Console.WriteLine("Получившийся список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+        }
+
+        private static void AddUnique(Contact contact, ref Dictionary<string, Contact> phoneBook)
+        {
+            if (phoneBook.ContainsKey(contact.Name)) return;
+            phoneBook.Add(contact.Name, contact);
         }
     }
 }

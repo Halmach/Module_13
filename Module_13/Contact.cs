@@ -15,7 +15,7 @@ namespace Module_13
         }
 
         public String Name { get; }
-        public long PhoneNumber { get; }
+        public long PhoneNumber { get; set; }
         public String Email { get; }
 
         public int CompareTo(Contact p)
