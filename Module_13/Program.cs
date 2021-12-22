@@ -192,6 +192,7 @@ namespace Module_13
         {
             char[] sepChars = {' '};
             var text = "Подсчитайте, сколько уникальных символов в этом предложении, используя HashSet<T>, учитывая знаки препинания, но не учитывая пробелы в начале и в конце предложения.";
+
             var temp = text.Trim().ToCharArray();
             HashSet<char> unqElem = new HashSet<char>();
             unqElem.UnionWith(temp);            
@@ -199,7 +200,11 @@ namespace Module_13
             {
                 Console.WriteLine(elem);
             }
+
+            unqElem.ExceptWith(sepChars);
             Console.WriteLine("Количество уникальных элементов в коллекции:" + unqElem.Count);
+            var numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            Console.WriteLine("Цирфы в коллекции: " + (unqElem.Overlaps(numbers) ? "Есть" : "Нет"));
         }
     }
 }
