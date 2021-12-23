@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -10,9 +11,16 @@ namespace Module_13
     {
         static void Main(string[] args)
         {
-            // CntUniqSymbolsInText();
 
-            FillPhoneBook();
+            ShowStackWorking();
+
+            // CntUniqSymbolsInText();
+            // var stopWatch = Stopwatch.StartNew();
+            //  FillPhoneBook();
+            // // FillPhoneBookBySortedDictionary();
+            //  Console.WriteLine(stopWatch.Elapsed.TotalMilliseconds);
+            // Console.WriteLine(Environment.NewLine);
+            // FillPhoneBookBySortedDictionary();
 
             //var months = new List<string>()
             //{
@@ -257,6 +265,96 @@ namespace Module_13
         {
             if (phoneBook.ContainsKey(contact.Name)) return;
             phoneBook.Add(contact.Name, contact);
+        }
+
+        private static void FillPhoneBookBySortedDictionary()
+        {
+            Contact contact = new Contact(name: "Ruslan", phoneNumber: 79375257001, email: "lar@yandex.ru");
+            SortedDictionary<string, Contact> phoneBook = new SortedDictionary<string, Contact>();
+            AddUnique(new Contact(name: "Zuslan1", phoneNumber: 79375257001, email: "lar@yandex.ru"), ref phoneBook);
+            AddUnique(new Contact(name: "Mlmir", phoneNumber: 79375251001, email: "ed@yandex.ru"), ref phoneBook);
+            AddUnique(new Contact(name: "Aara", phoneNumber: 79375557001, email: "zar@yandex.ru"), ref phoneBook);
+
+            Console.WriteLine("Исходный список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+
+            AddUnique(new Contact("Vasya", 79174257512, "vasya@mail.ru"), ref phoneBook);
+            AddUnique(new Contact("Valya", 79774267512, "valya@rambler.ru"), ref phoneBook);
+
+            Console.WriteLine("Получившийся список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+
+            phoneBook["Valya"].PhoneNumber = 79133541211;
+
+            Console.WriteLine();
+            Console.WriteLine("Получившийся список контактов:");
+            foreach (var elem in phoneBook)
+            {
+                Console.WriteLine("Имя:" + elem.Key);
+                Console.WriteLine("Номер телефона:" + elem.Value.PhoneNumber);
+                Console.WriteLine("Email:" + elem.Value.Email);
+            }
+        }
+
+        private static void AddUnique(Contact contact, ref SortedDictionary<string, Contact> phoneBook)
+        {
+            if (phoneBook.ContainsKey(contact.Name)) return;
+            phoneBook.Add(contact.Name, contact);
+        }
+
+        private static void ShowStackWorking()
+        {
+            Stack<string> words = new Stack<string>();
+            Console.WriteLine("Введите слово и нажмите Enter, чтобы добавить его в стек.");
+            Console.WriteLine();
+            string input = string.Empty;
+            var exit = false; 
+            while (!exit)
+            {
+                Console.WriteLine("Введите команду:");
+                input = Console.ReadLine();
+
+                if (input.Trim().ToLower() == "pop")
+                {
+                    var temp = string.Empty;
+                    words.TryPop(out temp);
+                    Console.WriteLine("Последнее извлеченное слово:" + temp);
+                    continue;
+                }
+
+                if (input.Trim().ToLower() == "peek")
+                {
+                    var temp = string.Empty;
+                    words.TryPeek(out temp);
+                    Console.WriteLine("Последнее  добавленное слово в стеке:" + temp);
+                    continue;
+                }
+                if (input.Trim().ToLower() == "exit")
+                {
+                    exit = true;
+                    continue;
+                }
+
+                words.Push(input); // Изменить здесь
+
+                Console.WriteLine();
+                Console.WriteLine("В стеке:");
+
+                foreach (var word in words)
+                {
+                    Console.WriteLine(" " + word);
+                }
+            }
         }
     }
 }
