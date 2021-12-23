@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace Module_13
 {
@@ -12,7 +14,9 @@ namespace Module_13
         static void Main(string[] args)
         {
 
-            ShowStackWorking();
+            ShowQueueWorking();
+
+            //ShowStackWorking();
 
             // CntUniqSymbolsInText();
             // var stopWatch = Stopwatch.StartNew();
@@ -355,6 +359,51 @@ namespace Module_13
                     Console.WriteLine(" " + word);
                 }
             }
+        }
+
+        private static void ShowQueueWorking()
+        {
+            // объявим потокобезопасную очередь (полностью идентична обычной очереди, но
+            // позволяет безопасный доступ
+            // из разных потоков)
+            ConcurrentQueue<string> words = new ConcurrentQueue<string>();
+            Console.WriteLine("Введите слово и нажмите Enter, чтобы добавить его в очередь.");
+            Console.WriteLine();
+
+            StartQueueProcessing(words);
+
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (input.Trim().ToLower() == "peek")
+                {
+                    var cntNum = words.Count;
+                    var i = 0;
+                    var temp = string.Empty;
+                    words.TryPeek(out temp);
+                    Console.WriteLine("Крайний элемент в очереди: " + temp);
+
+                    Console.WriteLine();
+                }
+                else words.Enqueue(input); // ИЗМЕНИТЬ ЗДЕСЬ
+            }
+
+        }
+
+        private static void StartQueueProcessing(ConcurrentQueue<string> words)
+        {
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                while (true)
+                {
+                    Thread.Sleep(5000);
+                    if (words.TryDequeue(out var element))
+                        Console.WriteLine("======>  " + element + " прошел очередь");
+                }
+
+            }).Start();
         }
     }
 }
